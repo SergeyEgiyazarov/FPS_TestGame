@@ -2,10 +2,11 @@
 #include "FPSObjectiveActor.h"
 #include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "FPS_TestGame/FPS_TestGameCharacter.h"
 
 AFPSObjectiveActor::AFPSObjectiveActor()
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -31,15 +32,16 @@ void AFPSObjectiveActor::PlayEffects()
 	UGameplayStatics::SpawnEmitterAtLocation(this, PickupFX, GetActorLocation());
 }
 
-// Called every frame
-void AFPSObjectiveActor::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
 void AFPSObjectiveActor::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
 	PlayEffects();
+
+	AFPS_TestGameCharacter* Character = Cast<AFPS_TestGameCharacter>(OtherActor);
+	if (Character)
+	{
+		Character->IsCarryingObjective = true;
+		Destroy();
+	}
 }
