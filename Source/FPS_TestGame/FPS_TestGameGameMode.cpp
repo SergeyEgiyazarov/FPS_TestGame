@@ -13,7 +13,7 @@ AFPS_TestGameGameMode::AFPS_TestGameGameMode()
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 }
 
-void AFPS_TestGameGameMode::CompleteMission(APawn* InstigatorPawn)
+void AFPS_TestGameGameMode::CompleteMission(APawn* InstigatorPawn, bool bMissionSuccess)
 {
 	if (InstigatorPawn)
 	{
@@ -39,5 +39,5 @@ void AFPS_TestGameGameMode::CompleteMission(APawn* InstigatorPawn)
 		}
 	}
 
-	OnMissionComplete(InstigatorPawn);
+	OnMissionComplete(InstigatorPawn, bMissionSuccess);
 }

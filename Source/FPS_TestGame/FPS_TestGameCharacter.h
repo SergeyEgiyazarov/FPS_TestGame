@@ -30,6 +30,9 @@ class AFPS_TestGameCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
 
+	UPROPERTY(VisibleAnywhere, Category = "AI")
+	UPawnNoiseEmitterComponent* NoiseEmitterComponent;
+
 public:
 	AFPS_TestGameCharacter();
 
